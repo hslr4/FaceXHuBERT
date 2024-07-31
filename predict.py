@@ -12,7 +12,8 @@ import pyrender
 from faceXhubert import FaceXHuBERT
 from transformers import Wav2Vec2Processor
 import time
-
+import os
+os.environ['PYOPENGL_PLATFORM'] = 'egl'
 
 def test_model(args):
     if not os.path.exists(args.result_path):
@@ -53,9 +54,12 @@ def test_model(args):
     test_name = os.path.basename(wav_path).split(".")[0]
     start_time = time.time()
     speech_array, sampling_rate = librosa.load(os.path.join(wav_path), sr=16000)
+    print('speech_array', speech_array.shape)
     processor = Wav2Vec2Processor.from_pretrained("facebook/hubert-xlarge-ls960-ft")
     audio_feature = processor(speech_array, return_tensors="pt", padding="longest", sampling_rate=sampling_rate).input_values
-    audio_feature = np.reshape(audio_feature,(-1,audio_feature.shape[0]))
+    print('audio_feature', audio_feature.shape)
+    #audio_feature = np.reshape(audio_feature,(-1,audio_feature.shape[0]))
+    print('audio_feature reshaped', audio_feature.shape)
     audio_feature = torch.FloatTensor(audio_feature).to(device=args.device)
 
     prediction = model.predict(audio_feature, template, one_hot, emo_one_hot)

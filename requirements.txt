@@ -1,0 +1,11 @@
+flash-attn==2.5.7
+transformers==4.43.2
+numpy==1.26.4
+librosa==0.10.2.post1
+# server
+uvicorn==0.30.3
+fastapi==0.111.1
+# rendering
+trimesh==4.4.3
+ffmpeg-python==0.2.0
+pyrender==0.1.45

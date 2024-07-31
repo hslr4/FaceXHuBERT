@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from hubert.modeling_hubert import HubertModel
+from transformers import HubertModel
 import torch.nn.functional as F
 
 
